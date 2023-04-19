@@ -1,0 +1,25 @@
+services:
+
+  web2:
+    build:
+      context: ./project2/
+    command: gunicorn project2.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./project2/:/usr/src/app/
+      - static_files2:/usr/src/app/staticfiles
+    expose:
+      - 8000
+
+
+  nginx2:
+    build:
+      context: ./nginx2/
+    ports:
+      - 81:80
+    volumes:
+      - ./nginx2/conf.d/:/etc/nginx/conf.d/
+      - static_files2:/home/app2/staticfiles
+
+volumes:
+  static_files2:
+
