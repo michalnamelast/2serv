@@ -15,7 +15,7 @@ services:
     build:
       context: ./nginx2/
     ports:
-      - 81:80
+      - 80:80
     volumes:
       - ./nginx2/conf.d/:/etc/nginx/conf.d/
       - static_files2:/home/app2/staticfiles
