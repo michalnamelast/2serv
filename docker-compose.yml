@@ -9,6 +9,23 @@ services:
       - static_files2:/usr/src/app/staticfiles
     expose:
       - 3000
+  services:
+
+    web:
+      build:
+        context: ./website/
+      command: gunicorn web.wsgi:application --bind 0.0.0.0:8000
+      volumes:
+        - ./website/:/usr/src/app/
+        - static_files:/usr/src/app/staticfiles
+      expose:
+        - 8000
+      env_file:
+        - ./.env/dev.env
+      networks:
+        default:
+          external:
+            name: my-network
 
 volumes:
   static_files2:
